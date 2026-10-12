@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDatabase = require('./data/database');
 
-dotenv.config();
+dotenv.config({ silent: true });
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -35,13 +35,15 @@ app.use((err, req, res, next) => {
 });
 
 async function startServer() {
-  await connectDatabase();
+  if (process.env.NODE_ENV !== 'test') {
+    await connectDatabase();
+  }
   app.listen(port, () => {
     console.log(`Server running on port ${port}`);
   });
 }
 
-if (require.main === module) {
+if (require.main === module && process.env.NODE_ENV !== 'test') {
   startServer().catch((err) => {
     console.error('Failed to start server', err);
     process.exitCode = 1;

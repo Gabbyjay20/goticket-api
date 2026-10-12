@@ -105,6 +105,77 @@ const doc = {
         maxTicketsPerCustomer: { type: 'number', minimum: 1, example: 4 },
         isActive: { type: 'boolean', default: true }
       }
+    },
+    UserCreate: {
+      type: 'object',
+      required: ['firstName', 'lastName', 'email'],
+      properties: {
+        firstName: { type: 'string', example: 'Solomon' },
+        lastName: { type: 'string', example: 'Kusasira' },
+        email: { type: 'string', format: 'email', example: 'solomon@example.com' },
+        role: { type: 'string', enum: ['attendee', 'admin'], example: 'attendee' },
+        phone: { type: 'string', example: '+256700000000' },
+        oauthProvider: { type: 'string', enum: ['google', 'github'] },
+        oauthId: { type: 'string' },
+        isActive: { type: 'boolean', default: true }
+      }
+    },
+    UserUpdate: {
+      type: 'object',
+      properties: {
+        firstName: { type: 'string', example: 'Solomon' },
+        lastName: { type: 'string', example: 'Kusasira' },
+        email: { type: 'string', format: 'email', example: 'solomon@example.com' },
+        role: { type: 'string', enum: ['attendee', 'admin'] },
+        phone: { type: 'string' },
+        oauthProvider: { type: 'string', enum: ['google', 'github'] },
+        oauthId: { type: 'string' },
+        isActive: { type: 'boolean' }
+      }
+    },
+    EventCreate: {
+      type: 'object',
+      required: ['title', 'description', 'date', 'time', 'venueId', 'price', 'category'],
+      properties: {
+        title: { type: 'string', example: 'Summer Music Festival' },
+        description: { type: 'string', example: 'A live music festival featuring local artists.' },
+        date: { type: 'string', format: 'date-time', example: '2026-11-15T00:00:00.000Z' },
+        time: { type: 'string', example: '19:30' },
+        venueId: { type: 'string', example: '507f1f77bcf86cd799439011' },
+        price: { type: 'number', minimum: 0, example: 25 },
+        category: {
+          type: 'string',
+          enum: ['concert', 'conference', 'sports', 'theatre', 'festival', 'workshop', 'other']
+        },
+        status: {
+          type: 'string',
+          enum: ['draft', 'published', 'cancelled', 'completed'],
+          default: 'draft'
+        },
+        organizerId: { type: 'string' },
+        isActive: { type: 'boolean', default: true }
+      }
+    },
+    EventUpdate: {
+      type: 'object',
+      properties: {
+        title: { type: 'string' },
+        description: { type: 'string' },
+        date: { type: 'string', format: 'date-time' },
+        time: { type: 'string', example: '19:30' },
+        venueId: { type: 'string' },
+        price: { type: 'number', minimum: 0 },
+        category: {
+          type: 'string',
+          enum: ['concert', 'conference', 'sports', 'theatre', 'festival', 'workshop', 'other']
+        },
+        status: {
+          type: 'string',
+          enum: ['draft', 'published', 'cancelled', 'completed']
+        },
+        organizerId: { type: 'string' },
+        isActive: { type: 'boolean' }
+      }
     }
   }
 };
